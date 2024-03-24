@@ -2,7 +2,7 @@
 //  Memory_GameApp.swift
 //  Memory Game
 //
-//  Created by Elias Woldie on 3/24/24.
+//  Created by Elias Woldie on 3/22/24.
 //
 
 import SwiftUI
@@ -11,7 +11,7 @@ import SwiftUI
 struct Memory_GameApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(viewModel: MemoryGameViewModel())
         }
     }
 }
