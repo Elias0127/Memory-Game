@@ -18,10 +18,16 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
-            // Size choosing buttons
             HStack {
-                Button("Choose Size") {
-                    // Logic to show size options
+                Menu("Choose Size") {
+                    ForEach(viewModel.possibleSizes, id: \.self) { size in
+                        Button(action: {
+                            // Correctly call the changeGameSize method here
+                            viewModel.changeGameSize(to: size)
+                        }) {
+                            Text("\(size) Pairs")
+                        }
+                    }
                 }
                 .buttonStyle(OrangeButtonStyle())
                 
