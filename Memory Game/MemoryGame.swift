@@ -7,11 +7,10 @@
 
 struct MemoryGame {
     var cards: [Card]
-    
+
     mutating func chooseCard(at index: Int) {
-        if !cards[index].isMatched {
-            if let matchIndex = cards.firstIndex(where: { $0.isFaceUp && !$0.isMatched }),
-                matchIndex != index {
+        if !cards[index].isMatched, !cards[index].isFaceUp {
+            if let matchIndex = cards.indices.filter({ cards[$0].isFaceUp && !cards[$0].isMatched }).first {
                 if cards[matchIndex].id == cards[index].id {
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
@@ -25,7 +24,7 @@ struct MemoryGame {
             }
         }
     }
-    
+
     mutating func resetGame() {
         for index in cards.indices {
             cards[index].isFaceUp = false
@@ -33,7 +32,7 @@ struct MemoryGame {
         }
         cards.shuffle()
     }
-    
+
     init(numberOfPairsOfCards: Int) {
         cards = [Card]()
         for pairIndex in 0..<numberOfPairsOfCards {
@@ -43,10 +42,11 @@ struct MemoryGame {
         }
         cards.shuffle()
     }
-    
+
     struct Card: Identifiable {
         var id: Int
         var isFaceUp = false
         var isMatched = false
     }
 }
+
